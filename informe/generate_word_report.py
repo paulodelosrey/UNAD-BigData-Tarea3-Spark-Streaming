@@ -477,6 +477,25 @@ def create_word_report():
         r_t.font.bold = True
         p_pt.add_run(dsc)
 
+    # Figura 5: Evidencias de Ejecución en Tiempo Real
+    f5_path = os.path.join(img_dir, "figura5_streaming_kafka_spark.png")
+    if os.path.exists(f5_path):
+        doc.add_picture(f5_path, width=Inches(6.2))
+        p_cap5 = doc.add_paragraph()
+        p_cap5.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r_c5 = p_cap5.add_run("Figura 5: Evidencia Práctica de Ejecución en Paralelo (Productor Kafka, Consumidor Spark Streaming y Spark Web UI).")
+        r_c5.font.italic = True
+        r_c5.font.size = Pt(9)
+
+    p_an5 = doc.add_paragraph()
+    p_an5.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    p_an5.paragraph_format.line_spacing = 1.15
+    p_an5.add_run(
+        "Análisis Técnico (Figura 5): Se valida la ingesta continua de registros en el topic sensor_data y su posterior consumo en micro-batches. "
+        "El operador de ventana deslizante consolida las medias de temperatura y humedad para cada sensor sin latencias de red, "
+        "mientras la interfaz web en el puerto 4040 confirma la asignación de 2.0 GiB de RAM en el Driver y cero etapas fallidas."
+    )
+
     # =========================================================================
     # REPOSITORIO Y RECURSOS MULTIMEDIA
     # =========================================================================
