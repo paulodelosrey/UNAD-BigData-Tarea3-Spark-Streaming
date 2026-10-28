@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*backup*
+check_*.py
+inspect_*.py
+update_*.py
