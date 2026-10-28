@@ -57,7 +57,8 @@ python3 src/batch_analysis.py
 ```
 *Las métricas estadísticas se visualizarán en consola y las gráficas se guardarán en la carpeta `output/`.*
 
-### 3. Ejecutar Procesamiento en Tiempo Real (Kafka & Spark Streaming)
+### 4. Presentación Online Oficial
+* **Google Slides:** https://docs.google.com/presentation/d/1MqQRxtU3fVPnxDnB2EPuVMmHrWjVB1EWMCfo44sE74U/edit?usp=sharing
 1. **Iniciar ZooKeeper y Kafka:**
    ```bash
    /opt/Kafka/bin/zookeeper-server-start.sh -daemon /opt/Kafka/config/zookeeper.properties

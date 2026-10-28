@@ -435,7 +435,7 @@ def build_pdf():
     story.append(Paragraph("7. Repositorio de Código y Recursos Multimedia", style_h1))
     story.append(HRFlowable(width="100%", thickness=1, color=c_accent, spaceAfter=8))
     story.append(Paragraph("• <b>Repositorio GitHub:</b> https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming", style_bullet))
-    story.append(Paragraph("• <b>Presentación Online (Canva / Genially):</b> https://www.canva.com/design/DAG.../view", style_bullet))
+    story.append(Paragraph("• <b>Presentación Online (Google Slides):</b> https://docs.google.com/presentation/d/1MqQRxtU3fVPnxDnB2EPuVMmHrWjVB1EWMCfo44sE74U/edit?usp=sharing", style_bullet))
     story.append(Paragraph("• <b>Video Explicativo de Sustentación (YouTube / Loom):</b> https://youtu.be/...", style_bullet))
 
     # =========================================================================

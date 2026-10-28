@@ -208,8 +208,8 @@ Durante el ciclo de ejecución en tiempo real, el motor de Spark levanta una int
   `https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming`  
   *(Incluye scripts `batch_analysis.py`, `kafka_producer.py`, `spark_streaming_consumer.py`, el dataset `.csv`, las imágenes de salida y el archivo `README.md` con las instrucciones de ejecución).*
 
-* **Enlace a la Presentación Online (Canva / Genially):**  
-  `https://www.canva.com/design/DAG.../view` *(Enlace público de la presentación estructurada).*
+* **Enlace a la Presentación Online (Google Slides):**  
+  `https://docs.google.com/presentation/d/1MqQRxtU3fVPnxDnB2EPuVMmHrWjVB1EWMCfo44sE74U/edit?usp=sharing`
 
 * **Enlace al Video Explicativo de Sustentación (Máximo 5 Minutos):**  
   `https://youtu.be/...` *(Video con audio y explicación del código batch y la ejecución de Kafka Streaming).*
