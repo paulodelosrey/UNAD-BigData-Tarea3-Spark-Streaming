@@ -140,6 +140,13 @@ def build_pdf():
         spaceAfter=4
     )
 
+    style_bullet_left = ParagraphStyle(
+        'Bullet_Left_Custom',
+        parent=style_bullet,
+        alignment=TA_LEFT,
+        spaceAfter=6
+    )
+
     style_caption = ParagraphStyle(
         'Caption_Custom',
         parent=styles['Normal'],
@@ -314,11 +321,22 @@ def build_pdf():
 
     story.append(Paragraph("3.4 Arquitectura de Apache Kafka", style_h2))
     story.append(Paragraph(
-        "Kafka opera como un log de confirmación distribuido estructurado en: <b>Topics</b> (categorías de eventos), <b>Partitions</b> "
-        "(unidades de paralelismo y orden con offsets secuenciales), <b>Brokers</b> (servidores del clúster que alojan particiones y réplicas), "
-        "<b>Producers</b> (emisores de eventos) y <b>Consumers / Consumer Groups</b> (lectores balanceados y escalables).",
+        "Apache Kafka es una plataforma distribuida de transmisión de eventos (<i>Event Streaming Platform</i>) basada en un registro de "
+        "confirmación (<i>commit log</i>) inmutable, particionado y replicado. Su arquitectura desacopla las fuentes productoras de datos "
+        "de los motores analíticos consumidores mediante cinco componentes clave:",
         style_body
     ))
+    story.append(Paragraph("• <b>Producers (Productores):</b> Aplicaciones o dispositivos IoT que publican registros de eventos de manera asíncrona hacia un Topic específico en el clúster.", style_bullet))
+    story.append(Paragraph("• <b>Topics (Tópicos):</b> Canales lógicos o categorías de almacenamiento (p. ej., <code>sensor_data</code>) donde se clasifican y publican los flujos de mensajes.", style_bullet))
+    story.append(Paragraph("• <b>Partitions (Particiones):</b> Subdivisiones físicas e inmutables de un Topic. Cada mensaje recibe un identificador secuencial único llamado <i>offset</i>, garantizando orden estricto y paralelismo horizontal.", style_bullet))
+    story.append(Paragraph("• <b>Brokers (Servidores):</b> Nodos físicos o virtuales que conforman el clúster de Kafka, encargados de almacenar las particiones en disco, gestionar la replicación y atender las peticiones de lectura/escritura coordinados por ZooKeeper / KRaft.", style_bullet))
+    story.append(Paragraph("• <b>Consumers / Consumer Groups (Consumidores):</b> Aplicaciones suscriptoras (como <i>Spark Structured Streaming</i>) que leen y procesan los eventos desde las particiones de forma paralela y tolerante a fallos sin bloquear a los productores.", style_bullet))
+    story.append(Spacer(1, 6))
+
+    fig_kafka = os.path.join(img_dir, "diagrama_arquitectura_kafka.png")
+    if os.path.exists(fig_kafka):
+        story.append(Image(fig_kafka, width=6.5*inch, height=3.14*inch))
+        story.append(Paragraph("<b>Figura 1:</b> Diagrama de Arquitectura Distribuida de Apache Kafka integrada con Spark Structured Streaming.", style_caption))
 
     story.append(PageBreak())
 
@@ -351,7 +369,7 @@ def build_pdf():
         style_body
     ))
 
-    story.append(Paragraph("5.1 Operaciones con RDDs", style_h2))
+    story.append(Paragraph("5.1 Operaciones con RDDs y Ejecución en Consola", style_h2))
     story.append(Paragraph(
         "Se aplicó <code>filter()</code> para aislar el material particulado fino (PM2.5), obteniendo 9.820 registros mediante <code>count()</code>. "
         "Posteriormente, se transformó a pares clave-valor y mediante <code>reduceByKey()</code> se computó de forma distribuida la concentración "
@@ -360,13 +378,20 @@ def build_pdf():
         style_body
     ))
 
+    fig_batch_term = os.path.join(img_dir, "captura_batch_terminal_real.png")
+    if os.path.exists(fig_batch_term):
+        story.append(Image(fig_batch_term, width=6.4*inch, height=3.5*inch))
+        story.append(Paragraph("<b>Figura 2:</b> Código fuente en PySpark (batch_analysis.py) y salida real de ejecución en consola Linux.", style_caption))
+
+    story.append(PageBreak())
+
     story.append(Paragraph("5.2 Análisis Exploratorio con DataFrames y Visualizaciones", style_h2))
 
     # Incrustar Gráfica 1
     fig1 = os.path.join(img_dir, "figura1_pm_departamentos.png")
     if os.path.exists(fig1):
-        story.append(Image(fig1, width=6.5*inch, height=3.0*inch))
-        story.append(Paragraph("<b>Figura 1:</b> Concentración Promedio de Material Particulado (PM2.5 y PM10) por Departamento en Colombia.", style_caption))
+        story.append(Image(fig1, width=6.4*inch, height=2.95*inch))
+        story.append(Paragraph("<b>Figura 3:</b> Concentración Promedio de Material Particulado (PM2.5 y PM10) por Departamento en Colombia.", style_caption))
 
     story.append(Paragraph(
         "<i>Interpretación Técnica:</i> Se observa una proporción constante donde el material grueso PM10 duplica los niveles de PM2.5. "
@@ -375,13 +400,11 @@ def build_pdf():
         style_body
     ))
 
-    story.append(PageBreak())
-
     # Incrustar Gráfica 2
     fig2 = os.path.join(img_dir, "figura2_distribucion_ica.png")
     if os.path.exists(fig2):
-        story.append(Image(fig2, width=6.0*inch, height=3.66*inch))
-        story.append(Paragraph("<b>Figura 2:</b> Distribución General del Índice de Calidad del Aire (ICA) en Colombia.", style_caption))
+        story.append(Image(fig2, width=5.8*inch, height=3.54*inch))
+        story.append(Paragraph("<b>Figura 4:</b> Distribución General del Índice de Calidad del Aire (ICA) en Colombia.", style_caption))
 
     story.append(Paragraph(
         "<i>Interpretación Técnica:</i> El 70.6% de los registros analizados caen en la categoría 'Buena' y el 26.3% en 'Aceptable'. "
@@ -390,11 +413,13 @@ def build_pdf():
         style_body
     ))
 
+    story.append(PageBreak())
+
     # Incrustar Gráfica 3
     fig3 = os.path.join(img_dir, "figura3_top_estaciones_criticas.png")
     if os.path.exists(fig3):
-        story.append(Image(fig3, width=6.5*inch, height=2.8*inch))
-        story.append(Paragraph("<b>Figura 3:</b> Top 7 Estaciones de Monitoreo Críticas por Concentración de PM2.5.", style_caption))
+        story.append(Image(fig3, width=6.4*inch, height=2.75*inch))
+        story.append(Paragraph("<b>Figura 5:</b> Top 7 Estaciones de Monitoreo Críticas por Concentración de PM2.5.", style_caption))
 
     story.append(Paragraph(
         "<i>Interpretación Técnica:</i> Mediante agregaciones y ordenamiento descendente, la estación Centro Histórico de Barranquilla "
@@ -405,8 +430,8 @@ def build_pdf():
     # Incrustar Gráfica 4
     fig4 = os.path.join(img_dir, "figura4_dispersion_clima_contaminacion.png")
     if os.path.exists(fig4):
-        story.append(Image(fig4, width=6.5*inch, height=3.0*inch))
-        story.append(Paragraph("<b>Figura 4:</b> Dispersión de PM2.5 en relación con Temperatura y Humedad Relativa.", style_caption))
+        story.append(Image(fig4, width=6.4*inch, height=2.95*inch))
+        story.append(Paragraph("<b>Figura 6:</b> Dispersión de PM2.5 en relación con Temperatura y Humedad Relativa.", style_caption))
 
     story.append(Paragraph(
         "<i>Interpretación Técnica:</i> Los picos de contaminación crítica (>45 µg/m³) coinciden con menores temperaturas y alta humedad relativa "
@@ -433,26 +458,28 @@ def build_pdf():
     fig5a = os.path.join(img_dir, "captura_kafka_instalacion_y_codigo.png")
     if os.path.exists(fig5a):
         story.append(Image(fig5a, width=6.3*inch, height=3.44*inch))
-        story.append(Paragraph("<b>Figura 5:</b> Arranque de ZooKeeper, Kafka Server, creación del topic sensor_data e implementación de scripts en Linux.", style_caption))
+        story.append(Paragraph("<b>Figura 7:</b> Arranque de ZooKeeper, Kafka Server, creación del topic sensor_data e implementación de scripts en Linux.", style_caption))
 
     fig5b = os.path.join(img_dir, "figura5_streaming_kafka_spark.png")
     if os.path.exists(fig5b):
         story.append(Image(fig5b, width=6.3*inch, height=3.44*inch))
-        story.append(Paragraph("<b>Figura 6:</b> Evidencia Real de Ejecución Concurrente en Consola (Productor Kafka y Consumidor Spark Streaming).", style_caption))
+        story.append(Paragraph("<b>Figura 8:</b> Evidencia Real de Ejecución Concurrente en Consola (Productor Kafka y Consumidor Spark Streaming).", style_caption))
 
     fig5c = os.path.join(img_dir, "spark_ui_stages_crop.png")
     if os.path.exists(fig5c):
         story.append(Image(fig5c, width=6.3*inch, height=2.47*inch))
-        story.append(Paragraph("<b>Figura 7:</b> Auditoría en Tiempo Real de Jobs y Stages en Spark Web UI (http://localhost:4040).", style_caption))
+        story.append(Paragraph("<b>Figura 9:</b> Auditoría en Tiempo Real de Jobs y Stages en Spark Web UI (http://localhost:4040).", style_caption))
 
     # =========================================================================
     # REPOSITORIO Y MULTIMEDIA
     # =========================================================================
     story.append(Paragraph("7. Repositorio de Código y Recursos Multimedia", style_h1))
     story.append(HRFlowable(width="100%", thickness=1, color=c_accent, spaceAfter=8))
-    story.append(Paragraph("• <b>Repositorio GitHub:</b> <a href='https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming' color='#005691'>https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming</a>", style_bullet))
-    story.append(Paragraph("• <b>Presentación Online (Google Slides):</b> <a href='https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing' color='#005691'>https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing</a>", style_bullet))
-    story.append(Paragraph("• <b>Video Explicativo de Sustentación (Google Drive):</b> <a href='https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing' color='#005691'>https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing</a>", style_bullet))
+    story.append(Paragraph("• <b>Repositorio Oficial en GitHub (Código, Dataset y Documentación):</b><br/><a href='https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming' color='#005691'>https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming</a>", style_bullet_left))
+    story.append(Paragraph("• <b>Presentación Online de Sustentación (Google Slides):</b><br/><a href='https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing' color='#005691'>https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing</a>", style_bullet_left))
+    story.append(Paragraph("• <b>Video Explicativo de Sustentación (Google Drive):</b><br/><a href='https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing' color='#005691'>https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing</a>", style_bullet_left))
+
+    story.append(PageBreak())
 
     # =========================================================================
     # CONCLUSIONES

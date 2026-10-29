@@ -286,6 +286,15 @@ def create_word_report():
         "Producers (aplicaciones que publican eventos) y Consumers / Consumer Groups (clientes que leen flujos de datos de forma coordinada y balanceada)."
     )
 
+    f_kafka_path = os.path.join(img_dir, "diagrama_arquitectura_kafka.png")
+    if os.path.exists(f_kafka_path):
+        doc.add_picture(f_kafka_path, width=Inches(6.2))
+        p_cap_k = doc.add_paragraph()
+        p_cap_k.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r_ck = p_cap_k.add_run("Figura 1: Diagrama de Arquitectura Distribuida de Apache Kafka integrada con Spark Structured Streaming.")
+        r_ck.font.italic = True
+        r_ck.font.size = Pt(9)
+
     doc.add_page_break()
 
     # =========================================================================
@@ -356,7 +365,7 @@ def create_word_report():
         "transformaciones con RDDs, análisis exploratorio con DataFrames y exportación de figuras gráficas."
     )
 
-    doc.add_heading(level=2).add_run("5.1 Limpieza y Operaciones con RDDs")
+    doc.add_heading(level=2).add_run("5.1 Limpieza, Operaciones con RDDs y Ejecución en Consola")
     p_rdd_res = doc.add_paragraph()
     p_rdd_res.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_rdd_res.paragraph_format.line_spacing = 1.15
@@ -366,6 +375,15 @@ def create_word_report():
         "y mediante reduceByKey() se calculó el promedio por departamento de forma agregada: Atlántico (25.50 µg/m³), Santander (25.43 µg/m³), "
         "Antioquia (24.72 µg/m³), Valle del Cauca (24.72 µg/m³) y Bogotá D.C. (24.56 µg/m³), recuperados mediante la acción collect()."
     )
+
+    f_batch_path = os.path.join(img_dir, "captura_batch_terminal_real.png")
+    if os.path.exists(f_batch_path):
+        doc.add_picture(f_batch_path, width=Inches(6.2))
+        p_cap_b = doc.add_paragraph()
+        p_cap_b.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r_cb = p_cap_b.add_run("Figura 2: Código fuente en PySpark (batch_analysis.py) y salida real de ejecución en consola Linux.")
+        r_cb.font.italic = True
+        r_cb.font.size = Pt(9)
 
     doc.add_heading(level=2).add_run("5.2 Evidencias Gráficas y Análisis Estadístico")
 
