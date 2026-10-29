@@ -252,18 +252,26 @@ def create_word_report():
         r_b.font.bold = True
         p_prop.add_run(desc)
 
-    p_ops = doc.add_paragraph()
-    p_ops.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    p_ops.paragraph_format.line_spacing = 1.15
-    p_ops.paragraph_format.space_before = Pt(4)
-    r_op_h = p_ops.add_run("Operaciones sobre RDDs:\n")
+    p_ops_h = doc.add_paragraph()
+    p_ops_h.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    p_ops_h.paragraph_format.space_before = Pt(6)
+    p_ops_h.paragraph_format.space_after = Pt(2)
+    r_op_h = p_ops_h.add_run("Operaciones sobre RDDs:")
     r_op_h.font.bold = True
-    p_ops.add_run(
-        "• Transformaciones: map (mapeo unario 1-a-1), filter (filtrado mediante predicado booleano), flatMap (mapeo y aplanamiento de colecciones), "
-        "groupByKey (agrupación por clave requiriendo fase de shuffle masivo en red) y reduceByKey (agregación asociativa local previa al shuffle, óptima en red).\n"
-        "• Acciones: collect (retorna todo el conjunto al programa conductor), count (retorna el número total de registros), "
-        "take (retorna los primeros n registros optimizando la lectura) y reduce (agrega elementos mediante función binaria)."
-    )
+
+    p_ops1 = doc.add_paragraph(style='List Bullet')
+    p_ops1.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    p_ops1.paragraph_format.line_spacing = 1.15
+    p_ops1.paragraph_format.space_after = Pt(3)
+    p_ops1.add_run("Transformaciones: ").font.bold = True
+    p_ops1.add_run("map (mapeo unario 1-a-1), filter (filtrado mediante predicado booleano), flatMap (mapeo y aplanamiento de colecciones), groupByKey (agrupación por clave requiriendo fase de shuffle masivo en red) y reduceByKey (agregación asociativa local previa al shuffle, óptima en red).")
+
+    p_ops2 = doc.add_paragraph(style='List Bullet')
+    p_ops2.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    p_ops2.paragraph_format.line_spacing = 1.15
+    p_ops2.paragraph_format.space_after = Pt(4)
+    p_ops2.add_run("Acciones: ").font.bold = True
+    p_ops2.add_run("collect (retorna todo el conjunto al programa conductor), count (retorna el número total de registros), take (retorna los primeros n registros optimizando la lectura) y reduce (agrega elementos mediante función binaria).")
 
     doc.add_heading(level=2).add_run("3.3 Concepto de DataFrame y Ventajas sobre los RDDs")
     p_df = doc.add_paragraph()
@@ -387,13 +395,13 @@ def create_word_report():
 
     doc.add_heading(level=2).add_run("5.2 Evidencias Gráficas y Análisis Estadístico")
 
-    # Figura 1
+    # Figura 3
     f1_path = os.path.join(img_dir, "figura1_pm_departamentos.png")
     if os.path.exists(f1_path):
         doc.add_picture(f1_path, width=Inches(6.2))
         p_cap1 = doc.add_paragraph()
         p_cap1.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r_c1 = p_cap1.add_run("Figura 1: Concentración Promedio de Material Particulado (PM2.5 y PM10) por Departamento en Colombia.")
+        r_c1 = p_cap1.add_run("Figura 3: Concentración Promedio de Material Particulado (PM2.5 y PM10) por Departamento en Colombia.")
         r_c1.font.italic = True
         r_c1.font.size = Pt(9)
 
@@ -401,18 +409,18 @@ def create_word_report():
     p_an1.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_an1.paragraph_format.line_spacing = 1.15
     p_an1.add_run(
-        "Análisis Técnico (Figura 1): La relación estequiométrica entre PM10 y PM2.5 se mantiene consistente en todas las regiones, "
+        "Análisis Técnico (Figura 3): La relación estequiométrica entre PM10 y PM2.5 se mantiene consistente en todas las regiones, "
         "duplicando las partículas gruesas a las finas. El departamento del Atlántico encabeza las concentraciones debido a condiciones eólicas y tráfico portuario, "
         "seguido estrechamente por Santander y Bogotá."
     )
 
-    # Figura 2
+    # Figura 4
     f2_path = os.path.join(img_dir, "figura2_distribucion_ica.png")
     if os.path.exists(f2_path):
-        doc.add_picture(f2_path, width=Inches(4.5))
+        doc.add_picture(f2_path, width=Inches(5.5))
         p_cap2 = doc.add_paragraph()
         p_cap2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r_c2 = p_cap2.add_run("Figura 2: Distribución Porcentual del Índice de Calidad del Aire (ICA) en Colombia.")
+        r_c2 = p_cap2.add_run("Figura 4: Distribución Porcentual del Índice de Calidad del Aire (ICA) en Colombia.")
         r_c2.font.italic = True
         r_c2.font.size = Pt(9)
 
@@ -420,20 +428,20 @@ def create_word_report():
     p_an2.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_an2.paragraph_format.line_spacing = 1.15
     p_an2.add_run(
-        "Análisis Técnico (Figura 2): El 70.6% de los eventos monitoreados se ubica en rango 'Bueno' y el 26.3% en 'Aceptable'. "
+        "Análisis Técnico (Figura 4): El 70.6% de los eventos monitoreados se ubica en rango 'Bueno' y el 26.3% en 'Aceptable'. "
         "Sin embargo, el 2.9% se categoriza como 'Dañina a Grupos Sensibles' y un 0.1% como 'Dañina', delimitando los momentos de emergencia "
         "donde la población vulnerable debe limitar su actividad al aire libre."
     )
 
     doc.add_page_break()
 
-    # Figura 3
+    # Figura 5
     f3_path = os.path.join(img_dir, "figura3_top_estaciones_criticas.png")
     if os.path.exists(f3_path):
         doc.add_picture(f3_path, width=Inches(6.2))
         p_cap3 = doc.add_paragraph()
         p_cap3.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r_c3 = p_cap3.add_run("Figura 3: Top 7 Estaciones de Monitoreo con Mayor Concentración Crítica de PM2.5.")
+        r_c3 = p_cap3.add_run("Figura 5: Top 7 Estaciones de Monitoreo con Mayor Concentración Crítica de PM2.5.")
         r_c3.font.italic = True
         r_c3.font.size = Pt(9)
 
@@ -441,17 +449,17 @@ def create_word_report():
     p_an3.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_an3.paragraph_format.line_spacing = 1.15
     p_an3.add_run(
-        "Análisis Técnico (Figura 3): La estación Centro Histórico de Barranquilla registra el promedio más alto (25.69 µg/m³), "
+        "Análisis Técnico (Figura 5): La estación Centro Histórico de Barranquilla registra el promedio más alto (25.69 µg/m³), "
         "seguida por Centro Bucaramanga (25.66 µg/m³) y Ciudadela Real de Minas (25.39 µg/m³), superando la línea guía preventiva recomendada."
     )
 
-    # Figura 4
+    # Figura 6
     f4_path = os.path.join(img_dir, "figura4_dispersion_clima_contaminacion.png")
     if os.path.exists(f4_path):
         doc.add_picture(f4_path, width=Inches(6.2))
         p_cap4 = doc.add_paragraph()
         p_cap4.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r_c4 = p_cap4.add_run("Figura 4: Dispersión de Concentración PM2.5 según Temperatura y Humedad Relativa.")
+        r_c4 = p_cap4.add_run("Figura 6: Dispersión de Concentración PM2.5 según Temperatura y Humedad Relativa.")
         r_c4.font.italic = True
         r_c4.font.size = Pt(9)
 
@@ -459,7 +467,7 @@ def create_word_report():
     p_an4.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_an4.paragraph_format.line_spacing = 1.15
     p_an4.add_run(
-        "Análisis Técnico (Figura 4): Se comprueba una mayor aglomeración de registros de polución elevada en condiciones de menor temperatura "
+        "Análisis Técnico (Figura 6): Se comprueba una mayor aglomeración de registros de polución elevada en condiciones de menor temperatura "
         "y humedad relativa alta (>70%), lo cual refleja empíricamente la retención de contaminantes por inversión térmica."
     )
 
@@ -495,33 +503,33 @@ def create_word_report():
         r_t.font.bold = True
         p_pt.add_run(dsc)
 
-    # Figura 5A: Configuración Kafka y Scripts
+    # Figura 7: Configuración Kafka y Scripts
     f5a_path = os.path.join(img_dir, "captura_kafka_instalacion_y_codigo.png")
     if os.path.exists(f5a_path):
         doc.add_picture(f5a_path, width=Inches(6.2))
         p_cap5a = doc.add_paragraph()
         p_cap5a.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r_c5a = p_cap5a.add_run("Figura 5: Arranque de ZooKeeper, Kafka Server, creación del topic sensor_data e implementación de scripts en Linux.")
+        r_c5a = p_cap5a.add_run("Figura 7: Arranque de ZooKeeper, Kafka Server, creación del topic sensor_data e implementación de scripts en Linux.")
         r_c5a.font.italic = True
         r_c5a.font.size = Pt(9)
 
-    # Figura 5B: Evidencias de Ejecución en Tiempo Real (Terminales en Paralelo)
+    # Figura 8: Evidencias de Ejecución en Tiempo Real (Terminales en Paralelo)
     f5_path = os.path.join(img_dir, "figura5_streaming_kafka_spark.png")
     if os.path.exists(f5_path):
         doc.add_picture(f5_path, width=Inches(6.2))
         p_cap5 = doc.add_paragraph()
         p_cap5.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r_c5 = p_cap5.add_run("Figura 6: Evidencia Real de Ejecución Concurrente en Consola (Productor Kafka y Consumidor Spark Streaming).")
+        r_c5 = p_cap5.add_run("Figura 8: Evidencia Real de Ejecución Concurrente en Consola (Productor Kafka y Consumidor Spark Streaming).")
         r_c5.font.italic = True
         r_c5.font.size = Pt(9)
 
-    # Figura 5C: Spark Web UI (:4040)
+    # Figura 9: Spark Web UI (:4040)
     f5c_path = os.path.join(img_dir, "spark_ui_stages_crop.png")
     if os.path.exists(f5c_path):
         doc.add_picture(f5c_path, width=Inches(6.2))
         p_cap5c = doc.add_paragraph()
         p_cap5c.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r_c5c = p_cap5c.add_run("Figura 7: Auditoría en Tiempo Real de Jobs y Stages en Spark Web UI (http://localhost:4040).")
+        r_c5c = p_cap5c.add_run("Figura 9: Auditoría en Tiempo Real de Jobs y Stages en Spark Web UI (http://localhost:4040).")
         r_c5c.font.italic = True
         r_c5c.font.size = Pt(9)
 
@@ -529,7 +537,7 @@ def create_word_report():
     p_an5.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_an5.paragraph_format.line_spacing = 1.15
     p_an5.add_run(
-        "Análisis Técnico (Figuras 5, 6 y 7): Se valida la ingesta continua de registros en el topic sensor_data y su posterior consumo en micro-batches. "
+        "Análisis Técnico (Figuras 7, 8 y 9): Se valida la ingesta continua de registros en el topic sensor_data y su posterior consumo en micro-batches. "
         "El operador de ventana deslizante consolida las medias de temperatura y humedad para cada sensor sin latencias de red, "
         "mientras la interfaz web en el puerto 4040 confirma la ejecución distribuida de los micro-batches (200 particiones) y cero etapas fallidas."
     )
@@ -543,13 +551,13 @@ def create_word_report():
     r_repo.font.bold = True
 
     repos = [
-        ("Repositorio GitHub", "https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming (Contiene batch_analysis.py, kafka_producer.py, spark_streaming_consumer.py, dataset y README.md)."),
-        ("Presentación Online (Google Slides)", "https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing (Presentación ejecutiva con el problema, arquitectura, capturas reales y resultados)."),
-        ("Video Explicativo de Sustentación (Google Drive)", "https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing (Video de sustentación explicando el código en batch, los resultados y el procesamiento en tiempo real del Anexo 3).")
+        ("Repositorio GitHub", "https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming"),
+        ("Presentación Online (Google Slides)", "https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing"),
+        ("Video Explicativo de Sustentación (Google Drive)", "https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing")
     ]
     for r_tit, r_link in repos:
         p_r = doc.add_paragraph(style='List Bullet')
-        p_r.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        p_r.alignment = WD_ALIGN_PARAGRAPH.LEFT
         p_r.paragraph_format.line_spacing = 1.15
         p_r.paragraph_format.space_after = Pt(4)
         p_r.add_run(f"{r_tit}: ").font.bold = True
