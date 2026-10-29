@@ -59,7 +59,7 @@ python3 src/batch_analysis.py
 
 ### 4. Recursos Multimedia y Sustentación Oficial
 * **Presentación Online (Google Slides):** https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing
-* **Video Explicativo de Sustentación (YouTube):** https://youtu.be/lX0_CDMhhbg
+* **Video Explicativo de Sustentación (Google Drive):** https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing
 
 ### 3. Ejecutar Procesamiento en Tiempo Real (Anexo 3: Kafka + Spark Streaming)
 1. **Iniciar ZooKeeper y Kafka:**

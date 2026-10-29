@@ -800,9 +800,9 @@ def build_presentation():
 
     p3 = tf_d.add_paragraph()
     r3 = p3.add_run()
-    r3.text = "https://youtu.be/lX0_CDMhhbg"
+    r3.text = "https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing"
     r3.font.name = "Segoe UI"
-    r3.font.size = Pt(14)
+    r3.font.size = Pt(11.5)
     r3.font.bold = True
     r3.font.color.rgb = BLUE_ACCENT
 

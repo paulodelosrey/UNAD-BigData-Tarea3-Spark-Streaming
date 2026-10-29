@@ -527,7 +527,7 @@ def create_word_report():
     repos = [
         ("Repositorio GitHub", "https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming (Contiene batch_analysis.py, kafka_producer.py, spark_streaming_consumer.py, dataset y README.md)."),
         ("Presentación Online (Google Slides)", "https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing (Presentación ejecutiva con el problema, arquitectura, capturas reales y resultados)."),
-        ("Video Explicativo de Sustentación (YouTube)", "https://youtu.be/lX0_CDMhhbg (Video de sustentación explicando el código en batch, los resultados y el procesamiento en tiempo real del Anexo 3).")
+        ("Video Explicativo de Sustentación (Google Drive)", "https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing (Video de sustentación explicando el código en batch, los resultados y el procesamiento en tiempo real del Anexo 3).")
     ]
     for r_tit, r_link in repos:
         p_r = doc.add_paragraph(style='List Bullet')

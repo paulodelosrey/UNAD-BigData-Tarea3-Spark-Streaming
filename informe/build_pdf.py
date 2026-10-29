@@ -452,7 +452,7 @@ def build_pdf():
     story.append(HRFlowable(width="100%", thickness=1, color=c_accent, spaceAfter=8))
     story.append(Paragraph("• <b>Repositorio GitHub:</b> <a href='https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming' color='#005691'>https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming</a>", style_bullet))
     story.append(Paragraph("• <b>Presentación Online (Google Slides):</b> <a href='https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing' color='#005691'>https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing</a>", style_bullet))
-    story.append(Paragraph("• <b>Video Explicativo de Sustentación (YouTube):</b> <a href='https://youtu.be/lX0_CDMhhbg' color='#005691'>https://youtu.be/lX0_CDMhhbg</a>", style_bullet))
+    story.append(Paragraph("• <b>Video Explicativo de Sustentación (Google Drive):</b> <a href='https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing' color='#005691'>https://drive.google.com/file/d/1W-Wxs7EDEc5xnfTqt0UkKGFZ4y3kINNL/view?usp=sharing</a>", style_bullet))
 
     # =========================================================================
     # CONCLUSIONES
