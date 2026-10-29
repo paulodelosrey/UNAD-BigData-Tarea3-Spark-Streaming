@@ -9,7 +9,7 @@ Tarea 3: Procesamiento de Datos con Apache Spark (Procesamiento en Batch)
 
 Estudiante: Paulo Andrés De los Reyes González
 Identificación: 1143451533
-Tutor: Fidia Rafael Barros
+Tutor: Ing. Fidias Rafael Barros
 =============================================================================
 """
 
@@ -216,14 +216,36 @@ def main():
     }
     palette_colors = [colores_ica.get(cat, "#95a5a6") for cat in df_ica["clasificacion_ica"]]
 
-    plt.figure(figsize=(7, 7))
-    plt.pie(df_ica["cantidad"], labels=df_ica["clasificacion_ica"], autopct='%1.1f%%',
-            startangle=140, colors=palette_colors, explode=[0.03]*len(df_ica),
-            textprops={'fontsize': 10, 'weight': 'bold'})
-    plt.title("Distribución General del Índice de Calidad del Aire (ICA) en Colombia", fontsize=13, fontweight='bold', pad=20)
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    wedges, texts, autotexts = ax.pie(
+        df_ica["cantidad"],
+        labels=None,
+        autopct=lambda pct: f"{pct:.1f}%" if pct > 2.0 else "",
+        pctdistance=0.75,
+        startangle=140,
+        colors=palette_colors,
+        explode=[0.02] * len(df_ica),
+        wedgeprops={'width': 0.48, 'edgecolor': 'white', 'linewidth': 2},
+        textprops={'fontsize': 11, 'weight': 'bold', 'color': '#1e293b'}
+    )
+    legend_labels = [
+        f"{row['clasificacion_ica']}: {row['porcentaje']:.1f}% ({int(row['cantidad']):,} reg.)"
+        for _, row in df_ica.iterrows()
+    ]
+    ax.legend(
+        wedges,
+        legend_labels,
+        title="Clasificación ICA (Muestras)",
+        title_fontsize=11,
+        fontsize=10,
+        loc="center left",
+        bbox_to_anchor=(0.92, 0.5),
+        frameon=True
+    )
+    ax.set_title("Distribución General del Índice de Calidad del Aire (ICA) en Colombia", fontsize=13, fontweight='bold', pad=15)
     plt.tight_layout()
     fig2_path = os.path.join(output_dir, "figura2_distribucion_ica.png")
-    plt.savefig(fig2_path, dpi=300)
+    plt.savefig(fig2_path, dpi=300, bbox_inches='tight')
     plt.close()
     print(f"      [SAVED] {fig2_path}")
 

@@ -477,23 +477,43 @@ def create_word_report():
         r_t.font.bold = True
         p_pt.add_run(dsc)
 
-    # Figura 5: Evidencias de Ejecución en Tiempo Real
+    # Figura 5A: Configuración Kafka y Scripts
+    f5a_path = os.path.join(img_dir, "captura_kafka_instalacion_y_codigo.png")
+    if os.path.exists(f5a_path):
+        doc.add_picture(f5a_path, width=Inches(6.2))
+        p_cap5a = doc.add_paragraph()
+        p_cap5a.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r_c5a = p_cap5a.add_run("Figura 5: Arranque de ZooKeeper, Kafka Server, creación del topic sensor_data e implementación de scripts en Linux.")
+        r_c5a.font.italic = True
+        r_c5a.font.size = Pt(9)
+
+    # Figura 5B: Evidencias de Ejecución en Tiempo Real (Terminales en Paralelo)
     f5_path = os.path.join(img_dir, "figura5_streaming_kafka_spark.png")
     if os.path.exists(f5_path):
         doc.add_picture(f5_path, width=Inches(6.2))
         p_cap5 = doc.add_paragraph()
         p_cap5.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r_c5 = p_cap5.add_run("Figura 5: Evidencia Práctica de Ejecución en Paralelo (Productor Kafka, Consumidor Spark Streaming y Spark Web UI).")
+        r_c5 = p_cap5.add_run("Figura 6: Evidencia Real de Ejecución Concurrente en Consola (Productor Kafka y Consumidor Spark Streaming).")
         r_c5.font.italic = True
         r_c5.font.size = Pt(9)
+
+    # Figura 5C: Spark Web UI (:4040)
+    f5c_path = os.path.join(img_dir, "spark_ui_stages_crop.png")
+    if os.path.exists(f5c_path):
+        doc.add_picture(f5c_path, width=Inches(6.2))
+        p_cap5c = doc.add_paragraph()
+        p_cap5c.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r_c5c = p_cap5c.add_run("Figura 7: Auditoría en Tiempo Real de Jobs y Stages en Spark Web UI (http://localhost:4040).")
+        r_c5c.font.italic = True
+        r_c5c.font.size = Pt(9)
 
     p_an5 = doc.add_paragraph()
     p_an5.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_an5.paragraph_format.line_spacing = 1.15
     p_an5.add_run(
-        "Análisis Técnico (Figura 5): Se valida la ingesta continua de registros en el topic sensor_data y su posterior consumo en micro-batches. "
+        "Análisis Técnico (Figuras 5, 6 y 7): Se valida la ingesta continua de registros en el topic sensor_data y su posterior consumo en micro-batches. "
         "El operador de ventana deslizante consolida las medias de temperatura y humedad para cada sensor sin latencias de red, "
-        "mientras la interfaz web en el puerto 4040 confirma la asignación de 2.0 GiB de RAM en el Driver y cero etapas fallidas."
+        "mientras la interfaz web en el puerto 4040 confirma la ejecución distribuida de los micro-batches (200 particiones) y cero etapas fallidas."
     )
 
     # =========================================================================
