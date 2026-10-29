@@ -800,9 +800,9 @@ def build_presentation():
 
     p3 = tf_d.add_paragraph()
     r3 = p3.add_run()
-    r3.text = "[Pegar aquí el enlace de YouTube / Loom / Drive tras finalizar la grabación]"
+    r3.text = "https://youtu.be/lX0_CDMhhbg"
     r3.font.name = "Segoe UI"
-    r3.font.size = Pt(13)
+    r3.font.size = Pt(14)
     r3.font.bold = True
     r3.font.color.rgb = BLUE_ACCENT
 

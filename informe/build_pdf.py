@@ -380,7 +380,7 @@ def build_pdf():
     # Incrustar Gráfica 2
     fig2 = os.path.join(img_dir, "figura2_distribucion_ica.png")
     if os.path.exists(fig2):
-        story.append(Image(fig2, width=4.5*inch, height=4.5*inch))
+        story.append(Image(fig2, width=6.0*inch, height=3.66*inch))
         story.append(Paragraph("<b>Figura 2:</b> Distribución General del Índice de Calidad del Aire (ICA) en Colombia.", style_caption))
 
     story.append(Paragraph(
@@ -428,15 +428,31 @@ def build_pdf():
     story.append(Paragraph("• <b>Productor Telemétrico (kafka_producer.py):</b> Emite eventos JSON continuo al topic <code>sensor_data</code> en el broker local (localhost:9092) con identificación de sensor (1-10), lecturas térmicas (20-30 °C), humedad (30-70%) y marcas temporales.", style_bullet))
     story.append(Paragraph("• <b>Consumidor Spark Structured Streaming (spark_streaming_consumer.py):</b> Se suscribe al topic, deserializa el payload con un StructType tipado y computa agregaciones estadísticas continuas mediante ventanas de tiempo deslizantes de 1 minuto agrupadas por sensor_id.", style_bullet))
     story.append(Paragraph("• <b>Spark Web UI (Puerto 4040):</b> Permite auditar en tiempo de ejecución los micro-batches, la latencia de procesamiento en la pestaña Jobs, los grafos de ejecución por Stages, la asignación de memoria en Environment y el estado de los Executors en la JVM.", style_bullet))
+    story.append(Spacer(1, 8))
+
+    fig5a = os.path.join(img_dir, "captura_kafka_instalacion_y_codigo.png")
+    if os.path.exists(fig5a):
+        story.append(Image(fig5a, width=6.3*inch, height=3.44*inch))
+        story.append(Paragraph("<b>Figura 5:</b> Arranque de ZooKeeper, Kafka Server, creación del topic sensor_data e implementación de scripts en Linux.", style_caption))
+
+    fig5b = os.path.join(img_dir, "figura5_streaming_kafka_spark.png")
+    if os.path.exists(fig5b):
+        story.append(Image(fig5b, width=6.3*inch, height=3.44*inch))
+        story.append(Paragraph("<b>Figura 6:</b> Evidencia Real de Ejecución Concurrente en Consola (Productor Kafka y Consumidor Spark Streaming).", style_caption))
+
+    fig5c = os.path.join(img_dir, "spark_ui_stages_crop.png")
+    if os.path.exists(fig5c):
+        story.append(Image(fig5c, width=6.3*inch, height=2.47*inch))
+        story.append(Paragraph("<b>Figura 7:</b> Auditoría en Tiempo Real de Jobs y Stages en Spark Web UI (http://localhost:4040).", style_caption))
 
     # =========================================================================
     # REPOSITORIO Y MULTIMEDIA
     # =========================================================================
     story.append(Paragraph("7. Repositorio de Código y Recursos Multimedia", style_h1))
     story.append(HRFlowable(width="100%", thickness=1, color=c_accent, spaceAfter=8))
-    story.append(Paragraph("• <b>Repositorio GitHub:</b> https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming", style_bullet))
-    story.append(Paragraph("• <b>Presentación Online (Google Slides):</b> https://docs.google.com/presentation/d/1MqQRxtU3fVPnxDnB2EPuVMmHrWjVB1EWMCfo44sE74U/edit?usp=sharing", style_bullet))
-    story.append(Paragraph("• <b>Video Explicativo de Sustentación (YouTube / Loom):</b> https://youtu.be/...", style_bullet))
+    story.append(Paragraph("• <b>Repositorio GitHub:</b> <a href='https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming' color='#005691'>https://github.com/paulodelosrey/UNAD-BigData-Tarea3-Spark-Streaming</a>", style_bullet))
+    story.append(Paragraph("• <b>Presentación Online (Google Slides):</b> <a href='https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing' color='#005691'>https://docs.google.com/presentation/d/1ky0XVas4k6nBlOhcIY3pm3_6-jkMMjMBw_3cKPN1E4A/edit?usp=sharing</a>", style_bullet))
+    story.append(Paragraph("• <b>Video Explicativo de Sustentación (YouTube):</b> <a href='https://youtu.be/lX0_CDMhhbg' color='#005691'>https://youtu.be/lX0_CDMhhbg</a>", style_bullet))
 
     # =========================================================================
     # CONCLUSIONES
